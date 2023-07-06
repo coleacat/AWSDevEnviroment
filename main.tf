@@ -52,17 +52,21 @@ resource "aws_security_group" "mtc_sg" {
   vpc_id      = aws_vpc.mtc_vpc.id
 
   ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]    // use own ip here
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"] // use own ip here
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]    // allow access to open internet
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"] // allow access to open internet
   }
+}
 
+resource "aws_key_pair" "myc_auth" {
+  key_name   = "mtckey"
+  public_key = file("~/.ssh/mtckey.pub")
 }
